@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовый навигатор | Тренажёр по цифровым финансовым инструментам РБ</title>
+    <style>
+        :root {
+            --primary: #003580;
+            --primary-light: #0056b3;
+            --accent: #fdb913;
+            --accent-dark: #d99e00;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --bg: #f4f7fb;
+            --card-bg: #ffffff;
+            --text: #1a1a2e;
+            --text-light: #6c757d;
+            --border: #e0e6ed;
+            --shadow: 0 4px 20px rgba(0, 53, 128, 0.08);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* === HEADER === */
+        .site-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 53, 128, 0.3);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        /* === HERO === */
+        .hero {
+            background: linear-gradient(135deg, #001d3d 0%, #003580 50%, #0056b3 100%);
+            color: white;
+            padding: 80px 24px 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(253, 185, 19, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 86, 179, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* === SECTIONS === */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        /* === CARDS === */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 53, 128, 0.12);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            padding: 6px 0 6px 28px;
+            position: relative;
+            font-size: 0.92rem;
+            color: var(--text);
+        }
+
+        .card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* === INTERACTIVE BLOCKS === */
+        .interactive-block {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-top: 32px;
+        }
+
+        .interactive-block h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .interactive-block h3 .badge {
+            background: var(--accent);
+            color: var(--primary);
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* === FORMS === */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: white;
+            color: var(--text);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 53, 128, 0.3);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 185, 19, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 18px;
+            font-size: 0.88rem;
+        }
+
+        /* === RESULT BOX === */
+        .result-box {
+            margin-top: 20px;
+            padding: 20px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.success {
+            background: #e6f9ee;
+            border-left: 4px solid var(--success);
+            color: #155724;
+        }
+
+        .result-box.error {
+            background: #fdecea;
+            border-left: 4px solid var(--danger);
+            color: #721c24;
+        }
+
+        .result-box.info {
+            background: #e8f0fe;
+            border-left: 4px solid var(--primary-light);
+            color: var(--primary);
+        }
+
+        .result-box.warning {
+            background: #fff8e1;
+            border-left: 4px solid var(--warning);
+            color: #856404;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === QUIZ === */
+        .quiz-question {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .quiz-question .q-num {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .quiz-question .q-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-light);
+            background: #f0f5ff;
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: #e8f0fe;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: #e6f9ee;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: #fdecea;
+        }
+
+        .quiz-option input {
+            display: none;
+        }
+
+        .quiz-option .radio-circle {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .quiz-option.selected .radio-circle {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        .quiz-option.selected .radio-circle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .quiz-option.correct .radio-circle {
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        .quiz-option.correct .radio-circle::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .quiz-option.incorrect .radio-circle {
+            border-color: var(--danger);
+            background: var(--danger);
+        }
+
+        .quiz-option.incorrect .radio-circle::after {
+            content: '✕';
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* === PROGRESS BAR === */
+        .progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light), var(--accent));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        /* === TABS === */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* === TERM FLIP CARDS === */
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .term-card {
+            perspective: 800px;
+            height: 160px;
+            cursor: pointer;
+        }
+
+        .term-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .term-card.flipped .term-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .term-front,
+        .term-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .term-front {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .term-front .term-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .term-back {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--text);
+            transform: rotateY(180deg);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* === FOOTER === */
+        .site-footer {
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 40px 24px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        .site-footer strong {
+            color: var(--accent);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 50px 20px 40px; }
+            .section { padding: 40px 16px; }
+            .section-header h2 { font-size: 1.5rem; }
+            .card { padding: 24px; }
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            .nav-links { width: 100%; }
+            .hero-stats { gap: 24px; }
+            .interactive-block { padding: 24px 16px; }
+            .quiz-question { padding: 20px; }
+        }
+
+        /* === SCROLL === */
+        html { scroll-behavior: smooth; }
+
+        /* === UTILITY === */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 16px; }
+        .mt-3 { margin-top: 24px; }
+        .mb-2 { margin-bottom: 16px; }
+        .flex { display: flex; }
+        .gap-2 { gap: 16px; }
+        .flex-wrap { flex-wrap: wrap; }
+
+        /* === CASE STUDY === */
+        .case-study {
+            background: linear-gradient(135deg, #f0f5ff, #e8f0fe);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            border-left: 4px solid var(--primary-light);
+            margin: 20px 0;
+        }
+
+        .case-study h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .case-study p {
+            font-size: 0.93rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        /* === CHECKLIST === */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checklist-item:last-child { border-bottom: none; }
+
+        .checklist-item:hover { background: #f8faff; }
+
+        .checklist-item .check-box {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            margin-top: 2px;
+        }
+
+        .checklist-item.checked .check-box {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checklist-item.checked .check-box::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .checklist-item .check-text {
+            font-size: 0.93rem;
+        }
+
+        .checklist-item.checked .check-text {
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        /* === SIMULATOR === */
+        .sim-screen {
+            background: #1a1a2e;
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+        }
+
+        .sim-screen .sim-line {
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .sim-screen .sim-line .highlight {
+            color: var(--accent);
+        }
+
+        .sim-screen .sim-line .success-text {
+            color: #4ade80;
+        }
+
+        .sim-screen .sim-line .error-text {
+            color: #f87171;
+        }
+
+        .sim-input-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .sim-input-row input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .sim-input-row input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+        }
+
+        /* === SAFETY CARDS === */
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .safety-card {
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: white;
+            transition: transform 0.2s;
+        }
+
+        .safety-card:hover { transform: translateY(-2px); }
+
+        .safety-card .sc-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .safety-card h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .safety-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* === NPD CALC === */
+        .calc-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .calc-row { grid-template-columns: 1fr; }
+        }
+
+        .calc-result {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .calc-result .big-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .calc-result .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* === BADGE === */
+        .badge-pill {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-green { background: #d4edda; color: #155724; }
+        .badge-blue { background: #cce5ff; color: #004085; }
+        .badge-yellow { background: #fff3cd; color: #856404; }
+        .badge-red { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<!-- === HEADER === -->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-icon">BYN</div>
+            <span>Финансовый навигатор</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#erip">ЕРИП</a>
+            <a href="#npd">НПД</a>
+            <a href="#cards">Банковские карты</a>
+            <a href="#literacy">Фин. грамотность</a>
+            <a href="#final-test">Итоговый тест</a>
+        </nav>
+    </div>
+</header>
+
+<!-- === HERO === -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>"Финансовый навигатор" — <span>образовательный тренажёр</span> по цифровым финансовым инструментам Республики Беларусь</h1>
+        <p>Изучите ЕРИП, налог на профессиональный доход, безопасность банковских карт и основы финансовой грамотности — с интерактивными заданиями и итоговым тестом.</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="num">4</span>
+                <span class="label">Ключевые темы</span>
+            </div>
+            <div class="hero-stat">
+                <span class="num">10+</span>
+                <span class="label">Интерактивных заданий</span>
+            </div>
+            <div class="hero-stat">
+                <span class="num">15</span>
+                <span class="label">Вопросов в тесте</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- === SECTION 1: ЕРИП === -->
+<section class="section" id="erip">
+    <div class="section-header">
+        <span class="section-tag">Тема 1</span>
+        <h2>ЕРИП — Единое расчётное и информационное пространство</h2>
+        <p>Система, созданная Национальным банком Республики Беларусь для упрощения приёма платежей от физических и юридических лиц. В ЕРИП можно оплатить более 63 тысяч услуг: ЖКХ, газо-, тепло- и электроснабжение, услуги связи, интернет, образование, здравоохранение и многое другое.</p>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon" style="background:#e8f0fe;color:var(--primary);">🏛️</div>
+            <h3>Что такое ЕРИП?</h3>
+            <p>Автоматизированная информационная система «Расчёт» — совокупность единых правил и процедур, определяющих порядок осуществления платежей за услуги и платежей в бюджет.</p>
+            <ul>
+                <li>Создана Национальным банком РБ</li>
+                <li>Более 63 000 услуг</li>
+                <li>Оплата через интернет-банкинг, банкоматы, инфокиоски, кассы</li>
+                <li>Номер плательщика ЕРИП — уникальный идентификатор</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#fff8e1;color:#856404;">📱</div>
+            <h3>ЕРИП.ID</h3>
+            <p>Платёжное приложение для физических лиц в виде PWA (Progressive Web App), обеспечивающее формирование и управление платёжными указаниями (акцептами) клиента.</p>
+            <ul>
+                <li>Доступ к счетам в банках через межбанковскую систему идентификации</li>
+                <li>Многофакторная аутентификация при входе</li>
+                <li>Инициирование платежей в ПС ЕРИП</li>
+                <li>PWA-приложение — не требует установки из магазина</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#e6f9ee;color:#155724;">💡</div>
+            <h3>Структура ЕРИП (Указ № 28 от 15.01.2025)</h3>
+            <p>Согласно Указу Президента Республики Беларусь, в состав ЕРИП входят:</p>
+            <ul>
+                <li>Платёжная система в ЕРИП</li>
+                <li>Межбанковская система идентификации (МСИ)</li>
+                <li>Биллинговые системы ЕРИП</li>
+                <li>Автоматизированные информационные системы (ресурсы)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Quiz -->
+    <div class="interactive-block">
+        <h3>🧠 Проверь себя: ЕРИП <span class="badge">Викторина</span></h3>
+        <div id="erip-quiz-container"></div>
+        <button class="btn btn-accent mt-2" onclick="checkEripQuiz()">Проверить ответы</button>
+        <div class="result-box" id="erip-quiz-result"></div>
+    </div>
+</section>
+
+<!-- === SECTION 2: НПД === -->
+<section class="section" id="npd">
+    <div class="section-header">
+        <span class="section-tag">Тема 2</span>
+        <h2>Налог на профессиональный доход (НПД)</h2>
+        <p>Специальный налоговый режим для физических лиц. Переход осуществляется добровольно. Для применения необходимо использовать цифровую платформу — приложение «Налог на профессиональный доход».</p>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon" style="background:#e8f0fe;color:var(--primary);">📊</div>
+            <h3>Ставки налога</h3>
+            <ul>
+                <li><strong>10%</strong> — от дохода, полученного от физических лиц, иностранных организаций и ИП</li>
+                <li><strong>10%</strong> — от белорусских организаций и ИП при доходе до 60 000 BYN в год</li>
+                <li><strong>20%</strong> — от белорусских организаций и ИП при доходе свыше 60 000 BYN в год</li>
+                <li><strong>4% и 8%</strong> — для получателей пенсии</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#e6f9ee;color:#155724;">✅</div>
+            <h3>Преимущества НПД</h3>
+            <ul>
+                <li>Простота регистрации через приложение</li>
+                <li>Не нужно представлять отчёты и декларации</li>
+                <li>Налог начисляется автоматически</li>
+                <li>Налоговый вычет 2 000 BYN</li>
+                <li>Не нужно кассовое оборудование</li>
+                <li>Совместим с основной работой</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#fff8e1;color:#856404;">📋</div>
+            <h3>Кто может применять</h3>
+            <ul>
+                <li>Физические лица без нанимателя</li>
+                <li>Не привлекающие иных лиц по трудовым договорам</li>
+                <li>Виды деятельности по постановлению № 457</li>
+                <li>Ремесленная деятельность</li>
+                <li>Услуги в сфере агроэкотуризма</li>
+                <li>Доходы от использования имущества</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Calculator -->
+    <div class="interactive-block">
+        <h3>🧮 Калькулятор НПД <span class="badge">Интерактив</span></h3>
+        <p style="color:var(--text-light);margin-bottom:16px;font-size:0.93rem;">Рассчитайте сумму налога на профессиональный доход в зависимости от вашей ситуации.</p>
+        <div class="calc-row">
+            <div class="form-group">
+                <label>Сумма дохода за месяц (BYN)</label>
+                <input type="number" id="npd-income" placeholder="Например, 1500" min="0">
+            </div>
+            <div class="form-group">
+                <label>Источник дохода</label>
+                <select id="npd-source">
+                    <option value="physical">Физические лица / иностранные организации</option>
+                    <option value="belarus">Белорусские организации и ИП (до 60 000 BYN/год)</option>
+                    <option value="belarus_over">Белорусские организации и ИП (свыше 60 000 BYN/год)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Получаете пенсию?</label>
+            <select id="npd-pension">
+                <option value="no">Нет</option>
+                <option value="yes">Да</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" onclick="calculateNPD()">Рассчитать налог</button>
+        <div class="calc-result" id="npd-result" style="display:none;">
+            <div class="label">Сумма налога к уплате за месяц</div>
+            <div class="big-num" id="npd-amount">0 BYN</div>
+            <div class="label" id="npd-details"></div>
+        </div>
+    </div>
+
+    <!-- Case Study -->
+    <div class="interactive-block">
+        <h3>📖 Кейс: блогер и НПД <span class="badge">Практика</span></h3>
+        <div class="case-study">
+            <h4>Ситуация</h4>
+            <p>Алексей — блогер. Он получает доход от белорусской компании за рекламные интеграции: <strong>5 000 BYN в месяц</strong> (60 000 BYN в год). Может ли он применять НПД?</p>
+        </div>
+        <div class="quiz-options" id="npd-case-options">
+            <div class="quiz-option" onclick="selectNpdCase(this, 'a')">
+                <div class="radio-circle"></div>
+                <span>А) Да, по ставке 10%, так как доход не превышает 60 000 BYN в год</span>
+            </div>
+            <div class="quiz-option" onclick="selectNpdCase(this, 'b')">
+                <div class="radio-circle"></div>
+                <span>Б) Нет, так как доход от организаций всегда облагается по ставке 20%</span>
+            </div>
+            <div class="quiz-option" onclick="selectNpdCase(this, 'c')">
+                <div class="radio-circle"></div>
+                <span>В) Да, но только если он зарегистрируется как ИП</span>
+            </div>
+        </div>
+        <button class="btn btn-accent btn-sm mt-2" onclick="checkNpdCase()">Проверить</button>
+        <div class="result-box" id="npd-case-result"></div>
+    </div>
+    <div class="interactive-block">
+        <h3>📖 Кейс: ремесленник и онлайн-продажи <span class="badge">Практика</span></h3>
+        <div class="case-study">
+            <h4>Ситуация</h4>
+            <p>Марина изготавливает изделия из бисера (ремесленная деятельность) и продает их через Instagram. За июль 2026 года её доход составил <strong>350 BYN</strong>. Она зарегистрирована как плательщик НПД. Какой налог ей нужно будет уплатить?</p>
+        </div>
+        <div class="quiz-options" id="npd-case-2-options">
+            <div class="quiz-option" onclick="selectNpdCase2(this, 'a')">
+                <div class="radio-circle"></div>
+                <span>А) 35 BYN (10% от дохода)</span>
+            </div>
+            <div class="quiz-option" onclick="selectNpdCase2(this, 'b')">
+                <div class="radio-circle"></div>
+                <span>Б) 45 BYN (минимальный налог)</span>
+            </div>
+            <div class="quiz-option" onclick="selectNpdCase2(this, 'c')">
+                <div class="radio-circle"></div>
+                <span>В) 70 BYN (20% от дохода)</span>
+            </div>
+        </div>
+        <button class="btn btn-accent btn-sm mt-2" onclick="checkNpdCase2()">Проверить</button>
+        <div class="result-box" id="npd-case-2-result"></div>
+    </div>
+    <div class="interactive-block">
+        <h3>📖 Кейс: сдача квартиры в аренду <span class="badge">Практика</span></h3>
+        <div class="case-study">
+            <h4>Ситуация</h4>
+            <p>Сергей сдает свою квартиру в Минске физическому лицу за <strong>500 BYN</strong> в месяц. Он применяет НПД. В августе 2026 года арендатор задержал оплату и перевел деньги только в сентябре. За август чеки в приложении «Профдоход» не формировались. Какой налог Сергей должен уплатить за август?</p>
+        </div>
+        <div class="quiz-options" id="npd-case-3-options">
+            <div class="quiz-option" onclick="selectNpdCase3(this, 'a')">
+                <div class="radio-circle"></div>
+                <span>А) 0 BYN — дохода в августе не было</span>
+            </div>
+            <div class="quiz-option" onclick="selectNpdCase3(this, 'b')">
+                <div class="radio-circle"></div>
+                <span>Б) 50 BYN (10% от 500 BYN)</span>
+            </div>
+            <div class="quiz-option" onclick="selectNpdCase3(this, 'c')">
+                <div class="radio-circle"></div>
+                <span>В) 45 BYN (минимальный налог)</span>
+            </div>
+        </div>
+        <button class="btn btn-accent btn-sm mt-2" onclick="checkNpdCase3()">Проверить</button>
+        <div class="result-box" id="npd-case-3-result"></div>
+    </div>
+</section>
+
+<!-- === SECTION 3: БАНКОВСКИЕ КАРТЫ === -->
+<section class="section" id="cards">
+    <div class="section-header">
+        <span class="section-tag">Тема 3</span>
+        <h2>Банковские карты: что это и безопасность держателей</h2>
+        <p>Банковская платёжная карточка — инструмент для безналичных расчётов и доступа к счёту. В Республике Беларусь действуют национальные (БЕЛКАРТ) и международные (Visa, Mastercard) платёжные системы.</p>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon" style="background:#e8f0fe;color:var(--primary);">💳</div>
+            <h3>Виды карт</h3>
+            <ul>
+                <li><strong>Дебетовые</strong> — доступ к собственным средствам</li>
+                <li><strong>Кредитные</strong> — за счёт средств банка</li>
+                <li><strong>Чиповые (EMV)</strong> — повышенный уровень защиты</li>
+                <li><strong>Бесконтактные</strong> — оплата в одно касание</li>
+                <li><strong>БЕЛКАРТ, Visa, Mastercard</strong> — платёжные системы</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#e6f9ee;color:#155724;">🔒</div>
+            <h3>Требования Нацбанка (2025)</h3>
+            <ul>
+                <li>Только карты с чипом стандарта EMV</li>
+                <li>Многофакторная аутентификация в интернете</li>
+                <li>Уведомление о лимитах и ограничениях</li>
+                <li>Информирование об уголовной ответственности (ст. 222 УК РБ)</li>
+                <li>Блокировка найденных карт как скомпрометированных</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#fdecea;color:#721c24;">⚠️</div>
+            <h3>Основные угрозы</h3>
+            <ul>
+                <li>Фишинг — поддельные сайты и сообщения</li>
+                <li>Скимминг — считывание данных с карты</li>
+                <li>Социальная инженерия — обман по телефону</li>
+                <li>Компрометация ПИН-кода или CVV</li>
+                <li>Использование карты третьими лицами</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Safety Checklist -->
+    <div class="interactive-block">
+        <h3>🛡️ Чек-лист безопасности держателя карты <span class="badge">Интерактив</span></h3>
+        <p style="color:var(--text-light);margin-bottom:16px;font-size:0.93rem;">Отметьте пункты, которые вы соблюдаете. Нажмите на каждый пункт, чтобы отметить его.</p>
+        <div id="safety-checklist">
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Никогда не сообщаю ПИН-код, CVV/CVC и коды из SMS третьим лицам</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Храню ПИН-код отдельно от карты, не записываю его на карте</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Использую многофакторную аутентификацию для интернет-операций</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Подключаю SMS- или push-уведомления о всех операциях по карте</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Проверяю банкоматы и терминалы на наличие посторонних устройств</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Не храню крупные суммы на карте, привязанной к интернет-покупкам</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Сразу блокирую карту при потере или подозрении на мошенничество</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="check-box"></div>
+                <span class="check-text">Не перехожу по ссылкам из подозрительных SMS и писем</span>
+            </div>
+        </div>
+        <div class="result-box info mt-2" id="safety-result"></div>
+    </div>
+
+    <!-- Safety Quiz -->
+    <div class="interactive-block">
+        <h3>🧠 Викторина: безопасность карт <span class="badge">Викторина</span></h3>
+        <div id="cards-quiz-container"></div>
+        <button class="btn btn-accent mt-2" onclick="checkCardsQuiz()">Проверить ответы</button>
+        <div class="result-box" id="cards-quiz-result"></div>
+    </div>
+</section>
+
+<!-- === SECTION 4: ФИНАНСОВАЯ ГРАМОТНОСТЬ === -->
+<section class="section" id="literacy">
+    <div class="section-header">
+        <span class="section-tag">Тема 4</span>
+        <h2>Основы финансовой грамотности</h2>
+        <p>Финансовая грамотность — совокупность знаний о финансах и финансовых рынках, которые позволяют планировать доходы и расходы, разумно пользоваться финансовыми инструментами и принимать осознанные решения.</p>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon" style="background:#e8f0fe;color:var(--primary);">📈</div>
+            <h3>Бюджет</h3>
+            <p>Планирование доходов и расходов — основа финансового благополучия.</p>
+            <ul>
+                <li>Постоянные доходы: зарплата, пенсия, стипендия</li>
+                <li>Сезонные доходы: продажа сельхозпродукции</li>
+                <li>Дополнительные: гонорары, подработки</li>
+                <li>Обязательные расходы: еда, ЖКХ, транспорт</li>
+                <li>Необязательные: развлечения, покупки</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#e6f9ee;color:#155724;">🏦</div>
+            <h3>Ключевые термины</h3>
+            <ul>
+                <li><strong>Депозит</strong> — вклад в банке под процент</li>
+                <li><strong>Кредит</strong> — заёмные средства под процент</li>
+                <li><strong>Инфляция</strong> — рост цен, снижение покупательной способности</li>
+                <li><strong>Процентная ставка</strong> — плата за пользование деньгами</li>
+                <li><strong>Инвестиции</strong> — вложения для получения дохода</li>
+                <li><strong>Онлайн-банкинг</strong> — управление счётом через интернет</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background:#fff8e1;color:#856404;">🎯</div>
+            <h3>Принципы</h3>
+            <ul>
+                <li>Тратить меньше, чем зарабатываешь</li>
+                <li>Создавать финансовую подушку (3–6 месяцев расходов)</li>
+                <li>Планировать крупные покупки заранее</li>
+                <li>Сравнивать условия перед оформлением кредита</li>
+                <li>Отслеживать свои расходы</li>
+                <li>Повышать финансовую грамотность</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flip Cards -->
+    <div class="interactive-block">
+        <h3>🔄 Интерактив: карточки терминов <span class="badge">Нажми, чтобы перевернуть</span></h3>
+        <div class="term-grid" id="term-grid"></div>
+    </div>
+
+    <!-- Budget Simulator -->
+    <div class="interactive-block">
+        <h3>💰 Симулятор семейного бюджета <span class="badge">Практика</span></h3>
+        <p style="color:var(--text-light);margin-bottom:16px;font-size:0.93rem;">Введите ваш месячный доход и основные расходы, чтобы увидеть остаток и получить рекомендацию.</p>
+        <div class="calc-row">
+            <div class="form-group">
+                <label>Доход за месяц (BYN)</label>
+                <input type="number" id="budget-income" placeholder="Например, 2000" min="0">
+            </div>
+            <div class="form-group">
+                <label>Обязательные расходы (BYN)</label>
+                <input type="number" id="budget-mandatory" placeholder="ЖКХ, еда, транспорт" min="0">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Необязательные расходы (BYN)</label>
+            <input type="number" id="budget-optional" placeholder="Развлечения, покупки" min="0">
+        </div>
+        <button class="btn btn-primary" onclick="calculateBudget()">Рассчитать бюджет</button>
+        <div class="result-box" id="budget-result"></div>
+    </div>
+</section>
+
+<!-- === FINAL TEST === -->
+<section class="section" id="final-test">
+    <div class="section-header">
+        <span class="section-tag">Итоговый тест</span>
+        <h2>Проверьте свои знания</h2>
+        <p>15 вопросов по всем изученным темам. Выберите один вариант ответа для каждого вопроса. В конце нажмите «Завершить тест», чтобы увидеть результат.</p>
+    </div>
+
+    <div class="progress-wrap">
+        <span style="font-size:0.85rem;font-weight:600;color:var(--text-light);">Прогресс:</span>
+        <div class="progress-bar">
+            <div class="progress-fill" id="test-progress"></div>
+        </div>
+        <span style="font-size:0.85rem;font-weight:600;color:var(--primary);" id="test-progress-text">0/15</span>
+    </div>
+
+    <div id="final-test-container"></div>
+
+    <div class="text-center mt-3">
+        <button class="btn btn-primary" style="font-size:1.1rem;padding:16px 48px;" onclick="finishTest()">Завершить тест</button>
+        <button class="btn btn-outline mt-2" onclick="resetTest()">Сбросить</button>
+    </div>
+
+    <div class="result-box" id="final-test-result" style="margin-top:24px;"></div>
+</section>
+
+<!-- === FOOTER === -->
+<footer class="site-footer">
+    <p><strong>"Финансовый навигатор"</strong> — образовательный тренажёр по цифровым финансовым инструментам Республики Беларусь</p>
+    <p style="margin-top:8px;font-size:0.8rem;opacity:0.7;">Материалы носят образовательный характер. Актуальную информацию уточняйте в официальных источниках: Национальный банк РБ, МНС РБ, ЕРИП.</p>
+</footer>
+
+<script>
+// ===================== DATA =====================
+const ERIP_QUIZ = [
+    {
+        q: "Что такое ЕРИП?",
+        options: [
+            "Единая республиканская интернет-платформа",
+            "Единое расчётное и информационное пространство",
+            "Единый реестр индивидуальных предпринимателей",
+            "Единая система электронного документооборота"
+        ],
+        correct: 1
+    },
+    {
+        q: "Сколько услуг можно оплатить через ЕРИП?",
+        options: ["Более 1 000", "Более 10 000", "Более 63 000", "Более 100 000"],
+        correct: 2
+    },
+    {
+        q: "Что такое ЕРИП.ID?",
+        options: [
+            "Платёжное приложение для физических лиц",
+            "Идентификационный номер налогоплательщика",
+            "Код услуги в системе ЕРИП",
+            "Номер плательщика ЕРИП"
+        ],
+        correct: 0
+    },
+    {
+        q: "Какой документ определил структуру ЕРИП в 2025 году?",
+        options: ["Указ № 28", "Постановление № 457", "Закон № 164-З", "Инструкция № 342"],
+        correct: 0
+    }
+];
+
+const CARDS_QUIZ = [
+    {
+        q: "Какой стандарт чипа обязателен для банковских карт в Беларуси с 2025 года?",
+        options: ["MIFARE", "EMV", "NFC", "RFID"],
+        correct: 1
+    },
+    {
+        q: "Что такое многофакторная аутентификация?",
+        options: [
+            "Использование нескольких паролей",
+            "Подтверждение личности двумя или более способами",
+            "Оплата картой в двух местах",
+            "Двойное списание средств"
+        ],
+        correct: 1
+    },
+    {
+        q: "Что категорически нельзя делать с ПИН-кодом?",
+        options: [
+            "Запоминать его",
+            "Хранить отдельно от карты",
+            "Записывать на карте",
+            "Менять его в банкомате"
+        ],
+        correct: 2
+    },
+    {
+        q: "Какая статья УК РБ предусматривает ответственность за незаконный оборот средств платежа?",
+        options: ["Статья 222", "Статья 212", "Статья 209", "Статья 243"],
+        correct: 0
+    }
+];
+
+const TERMS = [
+    { name: "Депозит", def: "Денежные средства, размещённые в банке на хранение под определённый процент" },
+    { name: "Кредит", def: "Заёмные денежные средства, предоставляемые банком на условиях возвратности, платности и срочности" },
+    { name: "Инфляция", def: "Устойчивый рост общего уровня цен на товары и услуги, снижающий покупательную способность денег" },
+    { name: "Процентная ставка", def: "Плата, выраженная в процентах, за пользование заёмными средствами или доход по вкладу" },
+    { name: "Инвестиции", def: "Вложения денежных средств с целью получения дохода или прироста капитала в будущем" },
+    { name: "Онлайн-банкинг", def: "Управление банковским счётом и проведение операций через интернет" },
+    { name: "Бюджет", def: "План доходов и расходов на определённый период времени" },
+    { name: "Финансовая подушка", def: "Резервный запас денежных средств на 3–6 месяцев обязательных расходов" }
+];
+
+const FINAL_TEST = [
+    { q: "Что такое ЕРИП?", options: ["Единая республиканская интернет-платформа", "Единое расчётное и информационное пространство", "Единый реестр ИП", "Единая система документооборота"], correct: 1 },
+    { q: "Сколько услуг можно оплатить через ЕРИП?", options: ["Более 1 000", "Более 10 000", "Более 63 000", "Более 100 000"], correct: 2 },
+    { q: "Ставка НПД для доходов от физических лиц:", options: ["5%", "10%", "15%", "20%"], correct: 1 },
+    { q: "При каком доходе от белорусских организаций применяется ставка 20%?", options: ["Свыше 30 000 BYN", "Свыше 60 000 BYN", "Свыше 100 000 BYN", "Свыше 200 000 BYN"], correct: 1 },
+    { q: "Для получателей пенсии ставка НПД составляет:", options: ["4% и 8%", "5% и 10%", "6% и 12%", "8% и 15%"], correct: 0 },
+    { q: "Какой стандарт чипа обязателен для карт в РБ?", options: ["MIFARE", "EMV", "NFC", "RFID"], correct: 1 },
+    { q: "Что нельзя сообщать третьим лицам?", options: ["Номер карты", "Срок действия", "CVV/CVC и ПИН-код", "Имя держателя"], correct: 2 },
+    { q: "Что такое многофакторная аутентификация?", options: ["Два пароля", "Подтверждение личности двумя и более способами", "Двойная оплата", "Два банкомата"], correct: 1 },
+    { q: "Какая статья УК РБ касается незаконного оборота средств платежа?", options: ["Статья 222", "Статья 212", "Статья 209", "Статья 243"], correct: 0 },
+    { q: "Что такое депозит?", options: ["Кредит", "Вклад в банке", "Инвестиция в акции", "Страховка"], correct: 1 },
+    { q: "Что такое инфляция?", options: ["Рост доходов", "Рост цен", "Рост безработицы", "Рост ВВП"], correct: 1 },
+    { q: "Что такое финансовая подушка?", options: ["Подушка безопасности в машине", "Резерв на 3–6 месяцев расходов", "Кредитная карта", "Вклад в банке"], correct: 1 },
+    { q: "С чего нужно начинать планирование бюджета?", options: ["С похода в магазин", "С покупки телевизора", "С соотнесения доходов и расходов", "Со списка экономии"], correct: 2 },
+    { q: "Что лучше сделать, если доходы превысили расходы?", options: ["Потратить всё", "Сделать сбережения", "Спрятать под матрас", "Купить лотерейные билеты"], correct: 1 },
+    { q: "Какой документ определил структуру ЕРИП в 2025 году?", options: ["Указ № 28", "Постановление № 457", "Закон № 164-З", "Инструкция № 342"], correct: 0 }
+];
+
+// ===================== ERIP SIMULATOR =====================
+let eripState = 'code'; // code -> amount -> confirm
+let eripCode = '';
+let eripAmount = '';
+
+function eripProcessCode() {
+    const input = document.getElementById('erip-code-input');
+    const val = input.value.trim();
+    if (!val) return;
+    
+    const screen = document.getElementById('erip-sim-screen');
+    
+    if (eripState === 'code') {
+        eripCode = val;
+        screen.innerHTML += `<div class="sim-line">Код услуги: <span class="highlight">${val}</span></div>`;
+        screen.innerHTML += `<div class="sim-line">─────────────────────────────</div>`;
+        screen.innerHTML += `<div class="sim-line">Введите сумму платежа (BYN):</div>`;
+        input.value = '';
+        input.placeholder = 'Сумма (например, 50.00)';
+        eripState = 'amount';
+    } else if (eripState === 'amount') {
+        eripAmount = val;
+        const amt = parseFloat(val);
+        if (isNaN(amt) || amt <= 0) {
+            screen.innerHTML += `<div class="sim-line error-text">Ошибка: введите корректную сумму</div>`;
+            return;
+        }
+        screen.innerHTML += `<div class="sim-line">Сумма: <span class="highlight">${amt.toFixed(2)} BYN</span></div>`;
+        screen.innerHTML += `<div class="sim-line">─────────────────────────────</div>`;
+        screen.innerHTML += `<div class="sim-line">Код услуги: ${eripCode} | Сумма: ${amt.toFixed(2)} BYN</div>`;
+        screen.innerHTML += `<div class="sim-line">Подтвердите платёж. Нажмите "Оплатить"</div>`;
+        input.value = '';
+        input.placeholder = 'Нажмите "Оплатить"';
+        input.disabled = true;
+        eripState = 'confirm';
+        // Change button text
+        const btn = document.querySelector('#erip-sim-screen + .sim-input-row .btn');
+        btn.textContent = 'Оплатить';
+        btn.setAttribute('onclick', 'eripConfirm()');
+    }
+}
+
+function eripConfirm() {
+    const screen = document.getElementById('erip-sim-screen');
+    screen.innerHTML += `<div class="sim-line success-text">✓ Платёж успешно проведён!</div>`;
+    screen.innerHTML += `<div class="sim-line">Спасибо за использование ЕРИП.</div>`;
+    
+    // Reset after 3 seconds
+    setTimeout(() => {
+        screen.innerHTML = `
+            <div class="sim-line">ЕРИП — Симулятор платёжного терминала</div>
+            <div class="sim-line">─────────────────────────────</div>
+            <div class="sim-line">Введите код услуги:</div>
+        `;
+        eripState = 'code';
+        eripCode = '';
+        eripAmount = '';
+        const input = document.getElementById('erip-code-input');
+        input.disabled = false;
+        input.value = '';
+        input.placeholder = 'Код услуги (например, 101)';
+        const btn = document.querySelector('#erip-sim-screen + .sim-input-row .btn');
+        btn.textContent = 'Ввести';
+        btn.setAttribute('onclick', 'eripProcessCode()');
+    }, 3000);
+}
+
+// ===================== NPD CALCULATOR =====================
+function calculateNPD() {
+    const income = parseFloat(document.getElementById('npd-income').value) || 0;
+    const source = document.getElementById('npd-source').value;
+    const pension = document.getElementById('npd-pension').value === 'yes';
+    
+    if (income <= 0) {
+        alert('Пожалуйста, введите сумму дохода больше 0');
+        return;
+    }
+    
+    let rate = 0;
+    let details = '';
+    
+    if (source === 'physical') {
+        rate = pension ? 0.04 : 0.10;
+        details = 'Доход от физических лиц / иностранных организаций';
+    } else if (source === 'belarus') {
+        rate = pension ? 0.04 : 0.10;
+        details = 'Доход от белорусских организаций (до 60 000 BYN/год)';
+    } else {
+        rate = pension ? 0.08 : 0.20;
+        details = 'Доход от белорусских организаций (свыше 60 000 BYN/год)';
+    }
+    
+    const tax = income * rate;
+    
+    document.getElementById('npd-amount').textContent = tax.toFixed(2) + ' BYN';
+    document.getElementById('npd-details').textContent = `Ставка: ${(rate*100).toFixed(0)}% | ${details}`;
+    document.getElementById('npd-result').style.display = 'block';
+}
+
+// ===================== NPD CASE =====================
+let npdCaseSelected = null;
+
+function selectNpdCase(el, val) {
+    document.querySelectorAll('#npd-case-options .quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    npdCaseSelected = val;
+}
+
+function checkNpdCase() {
+    const result = document.getElementById('npd-case-result');
+    result.className = 'result-box show';
+    
+    if (npdCaseSelected === 'a') {
+        result.classList.add('success');
+        result.innerHTML = '<strong>✅ Верно!</strong> Алексей может применять НПД по ставке 10%, так как его годовой доход от белорусской компании не превышает 60 000 BYN.';
+    } else if (npdCaseSelected === 'b') {
+        result.classList.add('error');
+        result.innerHTML = '<strong>❌ Неверно.</strong> Ставка 20% применяется только к сумме, превышающей 60 000 BYN в год. До этого порога ставка составляет 10%.';
+    } else if (npdCaseSelected === 'c') {
+        result.classList.add('error');
+        result.innerHTML = '<strong>❌ Неверно.</strong> НПД — это специальный режим именно для физических лиц без регистрации ИП.';
+    } else {
+        result.classList.add('warning');
+        result.innerHTML = 'Выберите вариант ответа.';
+    }
+}
+
+// ===================== SAFETY CHECKLIST =====================
+function toggleCheck(el) {
+    el.classList.toggle('checked');
+    updateSafetyResult();
+}
+
+function updateSafetyResult() {
+    const total = document.querySelectorAll('#safety-checklist .checklist-item').length;
+    const checked = document.querySelectorAll('#safety-checklist .checklist-item.checked').length;
+    const result = document.getElementById('safety-result');
+    
+    if (checked === 0) {
+        result.className = 'result-box info mt-2';
+        result.innerHTML = 'Отметьте пункты, которые вы соблюдаете.';
+        return;
+    }
+    
+    result.className = 'result-box show mt-2';
+    
+    if (checked === total) {
+        result.classList.add('success');
+        result.innerHTML = `<strong>🏆 Отлично!</strong> Вы соблюдаете все ${total} правил безопасности. Ваши финансы под надёжной защитой!`;
+    } else if (checked >= total * 0.7) {
+        result.classList.add('info');
+        result.innerHTML = `<strong>👍 Хорошо!</strong> Вы соблюдаете ${checked} из ${total} правил. Обратите внимание на оставшиеся пункты для максимальной безопасности.`;
+    } else {
+        result.classList.add('warning');
+        result.innerHTML = `<strong>⚠️ Внимание!</strong> Вы соблюдаете только ${checked} из ${total} правил. Рекомендуем пересмотреть свои привычки для защиты от мошенников.`;
+    }
+}
+
+// ===================== BUDGET CALCULATOR =====================
+function calculateBudget() {
+    const income = parseFloat(document.getElementById('budget-income').value) || 0;
+    const mandatory = parseFloat(document.getElementById('budget-mandatory').value) || 0;
+    const optional = parseFloat(document.getElementById('budget-optional').value) || 0;
+    
+    const result = document.getElementById('budget-result');
+    result.className = 'result-box show';
+    
+    if (income <= 0) {
+        result.classList.add('warning');
+        result.innerHTML = 'Введите сумму дохода.';
+        return;
+    }
+    
+    const totalExpenses = mandatory + optional;
+    const balance = income - totalExpenses;
+    const savingsRate = ((balance / income) * 100).toFixed(1);
+    
+    let advice = '';
+    let cls = 'success';
+    
+    if (balance > 0) {
+        if (savingsRate >= 20) {
+            advice = 'Отличный результат! Вы можете направлять сбережения на депозит или инвестиции.';
+        } else if (savingsRate >= 10) {
+            advice = 'Хороший результат. Постарайтесь увеличить норму сбережений до 20%.';
+        } else {
+            advice = 'Небольшой остаток. Рекомендуем пересмотреть необязательные расходы.';
+            cls = 'info';
+        }
+        result.innerHTML = `<strong>Остаток: ${balance.toFixed(2)} BYN</strong> (${savingsRate}% от дохода)<br>${advice}`;
+    } else if (balance === 0) {
+        cls = 'info';
+        result.innerHTML = 'Вы тратите ровно столько, сколько зарабатываете. Рекомендуем создать финансовую подушку.';
+    } else {
+        cls = 'error';
+        result.innerHTML = `<strong>Дефицит: ${Math.abs(balance).toFixed(2)} BYN</strong><br>Расходы превышают доходы. Необходимо сократить необязательные траты.`;
+    }
+    
+    result.classList.add(cls);
+}
+
+// ===================== QUIZ RENDERING =====================
+function renderQuiz(containerId, questions, prefix) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    
+    questions.forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'quiz-question';
+        div.innerHTML = `
+            <div class="q-num">${i + 1}</div>
+            <div class="q-text">${q.q}</div>
+            <div class="quiz-options" data-question="${i}">
+                ${q.options.map((opt, j) => `
+                    <div class="quiz-option" onclick="selectQuizOption(this, '${prefix}', ${i}, ${j})">
+                        <div class="radio-circle"></div>
+                        <span>${opt}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+const quizAnswers = { erip: {}, cards: {}, final: {} };
+
+function selectQuizOption(el, prefix, qIndex, optIndex) {
+    const parent = el.closest('.quiz-options');
+    parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    quizAnswers[prefix][qIndex] = optIndex;
+    
+    if (prefix === 'final') {
+        updateFinalProgress();
+    }
+}
+
+function checkEripQuiz() {
+    const result = document.getElementById('erip-quiz-result');
+    result.className = 'result-box show';
+    let correct = 0;
+    let total = ERIP_QUIZ.length;
+    
+    ERIP_QUIZ.forEach((q, i) => {
+        const options = document.querySelectorAll(`#erip-quiz-container .quiz-options[data-question="${i}"] .quiz-option`);
+        options.forEach((o, j) => {
+            o.classList.remove('correct', 'incorrect');
+            if (j === q.correct) o.classList.add('correct');
+            if (quizAnswers.erip[i] === j && j !== q.correct) o.classList.add('incorrect');
+        });
+        if (quizAnswers.erip[i] === q.correct) correct++;
+    });
+    
+    if (correct === total) {
+        result.classList.add('success');
+        result.innerHTML = `<strong>🏆 Отлично!</strong> Вы ответили правильно на все ${total} вопросов по ЕРИП!`;
+    } else if (correct >= total * 0.5) {
+        result.classList.add('info');
+        result.innerHTML = `<strong>👍 Хорошо!</strong> Правильных ответов: ${correct} из ${total}. Ознакомьтесь с выделенными правильными ответами.`;
+    } else {
+        result.classList.add('error');
+        result.innerHTML = `<strong>📚 Стоит повторить.</strong> Правильных ответов: ${correct} из ${total}. Вернитесь к теории выше.`;
+    }
+}
+
+function checkCardsQuiz() {
+    const result = document.getElementById('cards-quiz-result');
+    result.className = 'result-box show';
+    let correct = 0;
+    let total = CARDS_QUIZ.length;
+    
+    CARDS_QUIZ.forEach((q, i) => {
+        const options = document.querySelectorAll(`#cards-quiz-container .quiz-options[data-question="${i}"] .quiz-option`);
+        options.forEach((o, j) => {
+            o.classList.remove('correct', 'incorrect');
+            if (j === q.correct) o.classList.add('correct');
+            if (quizAnswers.cards[i] === j && j !== q.correct) o.classList.add('incorrect');
+        });
+        if (quizAnswers.cards[i] === q.correct) correct++;
+    });
+    
+    if (correct === total) {
+        result.classList.add('success');
+        result.innerHTML = `<strong>🏆 Отлично!</strong> Вы ответили правильно на все ${total} вопросов по безопасности карт!`;
+    } else if (correct >= total * 0.5) {
+        result.classList.add('info');
+        result.innerHTML = `<strong>👍 Хорошо!</strong> Правильных ответов: ${correct} из ${total}.`;
+    } else {
+        result.classList.add('error');
+        result.innerHTML = `<strong>📚 Стоит повторить.</strong> Правильных ответов: ${correct} из ${total}.`;
+    }
+}
+
+// ===================== TERM CARDS =====================
+function renderTerms() {
+    const grid = document.getElementById('term-grid');
+    if (!grid) return;
+    grid.innerHTML = TERMS.map(t => `
+        <div class="term-card" onclick="this.classList.toggle('flipped')">
+            <div class="term-card-inner">
+                <div class="term-front">
+                    <div class="term-name">${t.name}</div>
+                </div>
+                <div class="term-back">
+                    <div>${t.def}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ===================== FINAL TEST =====================
+function renderFinalTest() {
+    const container = document.getElementById('final-test-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    FINAL_TEST.forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'quiz-question';
+        div.innerHTML = `
+            <div class="q-num">${i + 1}</div>
+            <div class="q-text">${q.q}</div>
+            <div class="quiz-options" data-question="${i}">
+                ${q.options.map((opt, j) => `
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'final', ${i}, ${j})">
+                        <div class="radio-circle"></div>
+                        <span>${opt}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function updateFinalProgress() {
+    const answered = Object.keys(quizAnswers.final).length;
+    const total = FINAL_TEST.length;
+    const pct = (answered / total) * 100;
+    document.getElementById('test-progress').style.width = pct + '%';
+    document.getElementById('test-progress-text').textContent = `${answered}/${total}`;
+}
+
+function finishTest() {
+    const result = document.getElementById('final-test-result');
+    let correct = 0;
+    const total = FINAL_TEST.length;
+    
+    FINAL_TEST.forEach((q, i) => {
+        const options = document.querySelectorAll(`#final-test-container .quiz-options[data-question="${i}"] .quiz-option`);
+        options.forEach((o, j) => {
+            o.classList.remove('correct', 'incorrect');
+            if (j === q.correct) o.classList.add('correct');
+            if (quizAnswers.final[i] === j && j !== q.correct) o.classList.add('incorrect');
+        });
+        if (quizAnswers.final[i] === q.correct) correct++;
+    });
+    
+    const pct = Math.round((correct / total) * 100);
+    result.className = 'result-box show';
+    result.style.display = 'block';
+    
+    if (pct >= 90) {
+        result.classList.add('success');
+        result.innerHTML = `<h3 style="margin-bottom:8px;">🏆 Превосходно!</h3>Вы ответили правильно на <strong>${correct} из ${total}</strong> вопросов (${pct}%). Вы отлично разбираетесь в цифровых финансовых инструментах Республики Беларусь!`;
+    } else if (pct >= 70) {
+        result.classList.add('info');
+        result.innerHTML = `<h3 style="margin-bottom:8px;">👍 Хороший результат!</h3>Вы ответили правильно на <strong>${correct} из ${total}</strong> вопросов (${pct}%). Рекомендуем повторить темы, где были ошибки.`;
+    } else if (pct >= 50) {
+        result.classList.add('warning');
+        result.innerHTML = `<h3 style="margin-bottom:8px;">📚 Удовлетворительно</h3>Вы ответили правильно на <strong>${correct} из ${total}</strong> вопросов (${pct}%). Стоит вернуться к изучению материала.`;
+    } else {
+        result.classList.add('error');
+        result.innerHTML = `<h3 style="margin-bottom:8px;">📖 Нужно повторить</h3>Вы ответили правильно на <strong>${correct} из ${total}</strong> вопросов (${pct}%). Рекомендуем внимательно изучить все разделы сайта.`;
+    }
+    
+    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetTest() {
+    quizAnswers.final = {};
+    document.querySelectorAll('#final-test-container .quiz-option').forEach(o => {
+        o.classList.remove('selected', 'correct', 'incorrect');
+    });
+    document.getElementById('final-test-result').style.display = 'none';
+    document.getElementById('test-progress').style.width = '0%';
+    document.getElementById('test-progress-text').textContent = '0/15';
+}
+
+// ===================== INIT =====================
+document.addEventListener('DOMContentLoaded', function() {
+    renderQuiz('erip-quiz-container', ERIP_QUIZ, 'erip');
+    renderQuiz('cards-quiz-container', CARDS_QUIZ, 'cards');
+    renderTerms();
+    renderFinalTest();
+    updateFinalProgress();
+});
+// ===================== NPD CASE 2 (Ремесленник) =====================
+let npdCase2Selected = null;
+
+function selectNpdCase2(el, val) {
+    document.querySelectorAll('#npd-case-2-options .quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    npdCase2Selected = val;
+}
+
+function checkNpdCase2() {
+    const result = document.getElementById('npd-case-2-result');
+    result.className = 'result-box show';
+    
+    if (npdCase2Selected === 'b') {
+        result.classList.add('success');
+        result.innerHTML = '<strong>✅ Верно!</strong> С 1 июля 2026 года введён минимальный ежемесячный размер НПД — 45 BYN. Расчётный налог (350 × 10% = 35 BYN) меньше минимума, поэтому к уплате — 45 BYN.';
+    } else if (npdCase2Selected === 'a') {
+        result.classList.add('error');
+        result.innerHTML = '<strong>❌ Неверно.</strong> Вы правильно рассчитали 10%, но с 1 июля 2026 года сумма налога не может быть меньше 45 BYN в месяц, даже если расчётная сумма меньше.';
+    } else if (npdCase2Selected === 'c') {
+        result.classList.add('error');
+        result.innerHTML = '<strong>❌ Неверно.</strong> Ставка 20% применяется только к доходу от белорусских организаций, превысившему 60 000 BYN в год. Для доходов от физических лиц всегда 10%.';
+    } else {
+        result.classList.add('warning');
+        result.innerHTML = 'Выберите вариант ответа.';
+    }
+}
+
+// ===================== NPD CASE 3 (Аренда) =====================
+let npdCase3Selected = null;
+
+function selectNpdCase3(el, val) {
+    document.querySelectorAll('#npd-case-3-options .quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    npdCase3Selected = val;
+}
+
+function checkNpdCase3() {
+    const result = document.getElementById('npd-case-3-result');
+    result.className = 'result-box show';
+    
+    if (npdCase3Selected === 'c') {
+        result.classList.add('success');
+        result.innerHTML = '<strong>✅ Верно!</strong> Если в каком-то месяце доход не получен и чеки не формировались, но вы не снялись с учёта как плательщик НПД, необходимо уплатить минимальный налог — 45 BYN. Сумма минимального налога не может быть зачтена в счёт будущих платежей.';
+    } else if (npdCase3Selected === 'a') {
+        result.classList.add('error');
+        result.innerHTML = '<strong>❌ Неверно.</strong> Отсутствие дохода в конкретном месяце не освобождает от уплаты минимального налога, если вы остаётесь плательщиком НПД. Уплатить придётся 45 BYN.';
+    } else if (npdCase3Selected === 'b') {
+        result.classList.add('error');
+        result.innerHTML = '<strong>❌ Неверно.</strong> Доход за август фактически получен в сентябре, поэтому чеки за август не формировались. Налог за август — минимальный, 45 BYN. А с дохода, полученного в сентябре, нужно будет уплатить 10% (но не менее 45 BYN).';
+    } else {
+        result.classList.add('warning');
+        result.innerHTML = 'Выберите вариант ответа.';
+    }
+}
+</script>
+</body>
+</html>
